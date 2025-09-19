@@ -1,4 +1,4 @@
-@CalistenIA_HostAddress = http://localhost:5110
+@CalistenIA_HostAddress = http://localhost:5034
 
 GET {{CalistenIA_HostAddress}}/weatherforecast/
 Accept: application/json
