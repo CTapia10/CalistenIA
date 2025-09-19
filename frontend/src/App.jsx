@@ -1,4 +1,5 @@
 import Rutinas from "./components/Rutinas.jsx";
+import ChatIA from "./components/ChatIA";
 
 function App() {
   return (
@@ -7,11 +8,13 @@ function App() {
       fontFamily: "Arial, sans-serif",
       maxWidth: "800px",
       margin: "0 auto",
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "#121212", // Fondo oscuro global
+      color: "#eee",               // Texto claro global
       minHeight: "100vh"
     }}>
-      <h1 style={{ textAlign: "center", color: "#333" }}>CalistenIA 💪</h1>
+      <h1 style={{ textAlign: "center", color: "#eee" }}>CalistenIA 💪</h1>
       <Rutinas />
+      <ChatIA darkMode={true} />
     </div>
   );
 }

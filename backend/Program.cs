@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CalisteniaAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Servicios
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<OllamaService>();
 
 // CORS
 builder.Services.AddCors();
