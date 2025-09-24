@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ChatIA from "./ChatIA";
 
 function Rutinas() {
   const [rutinas, setRutinas] = useState([]);
@@ -7,7 +6,7 @@ function Rutinas() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5034/api/rutinas")
+    fetch("http://localhost:5034/api/rutinas") // tu endpoint del backend
       .then((res) => {
         if (!res.ok) throw new Error("Error al cargar rutinas");
         return res.json();
@@ -17,23 +16,32 @@ function Rutinas() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p style={{ textAlign: "center", color: "#ccc" }}>Cargando rutinas...</p>;
+  if (loading) return <p style={{ textAlign: "center" }}>Cargando rutinas...</p>;
   if (error) return <p style={{ color: "red", textAlign: "center" }}>Error: {error.message}</p>;
 
   return (
-    <div style={{ border: "3px solid #333", maxWidth: "800px", margin: "auto", color: "#eee", backgroundColor: "#121212", padding: "20px", borderRadius: "10px" }}>
-      <h2>Rutinas de Calistenia</h2>
+    <div>
+      <h2 style={{ color: "#555" }}>Rutinas de Calistenia</h2>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {rutinas.map((r) => (
-          <li key={r.id} style={{
-            border: "3px solid #333",
-            backgroundColor: "#1e1e1e",
-            padding: "10px 15px",
-            marginBottom: "10px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 5px rgba(0,0,0,0.5)"
-          }}>
-            <strong>{r.nombre}</strong>: {Array.isArray(r.ejercicios) ? r.ejercicios.join(", ") : "No hay ejercicios"}
+          <li
+            key={r.id}
+            style={{
+              backgroundColor: "#fff",
+              padding: "10px 15px",
+              marginBottom: "10px",
+              borderRadius: "8px",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+            }}
+          >
+            <strong>{r.nombre}</strong> ({r.dificultad})
+            <ul style={{ marginTop: "5px", paddingLeft: "15px" }}>
+              {Array.isArray(r.ejercicios) && r.ejercicios.length > 0 ? (
+                r.ejercicios.map((e) => <li key={e.id}>{e.nombre}</li>)
+              ) : (
+                <li>No hay ejercicios</li>
+              )}
+            </ul>
           </li>
         ))}
       </ul>

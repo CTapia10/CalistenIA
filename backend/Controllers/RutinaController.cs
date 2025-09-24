@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using CalisteniaAPI.Models; // <-- Importante
+using Microsoft.EntityFrameworkCore;
+using CalistenIA.Models;
 
 namespace CalisteniaAPI.Controllers
 {
@@ -7,17 +8,32 @@ namespace CalisteniaAPI.Controllers
     [Route("api/[controller]")]
     public class RutinasController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetRutinas()
+        private readonly CalisteniaContext _context;
+
+        public RutinasController(CalisteniaContext context)
         {
-            var rutinas = new List<Rutina>
-            {
-                new Rutina { Id = 1, Nombre = "Principiante", Ejercicios = new [] { "Flexiones", "Sentadillas", "Plancha" } },
-                new Rutina { Id = 2, Nombre = "Intermedia", Ejercicios = new [] { "Dominadas", "Fondos", "Burpees" } },
-                new Rutina { Id = 3, Nombre = "Avanzada", Ejercicios = new [] { "Muscle-ups", "Pistol Squats", "Handstand Push-ups" } }
-            };
+            _context = context;
+        }
+
+        // GET: api/rutinas
+        [HttpGet]
+        public async Task<IActionResult> GetRutinas()
+        {
+            // Incluye los ejercicios relacionados
+            var rutinas = await _context.Rutinas
+                .Include(r => r.Ejercicios)
+                .ToListAsync();
 
             return Ok(rutinas);
+        }
+
+        // POST: api/rutinas
+        [HttpPost]
+        public async Task<IActionResult> CrearRutina(Rutina rutina)
+        {
+            _context.Rutinas.Add(rutina);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetRutinas), new { id = rutina.Id }, rutina);
         }
     }
 }
