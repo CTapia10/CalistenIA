@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CalistenIA.Models;
+using CalistenIA.Data;
 
 namespace CalisteniaAPI.Controllers
 {

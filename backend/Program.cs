@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configurar DbContext
 builder.Services.AddDbContext<CalisteniaContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CalisteniaConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CalistenIAConnection")));
     
 // Servicios
 builder.Services.AddControllers();
