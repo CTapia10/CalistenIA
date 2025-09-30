@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using CalistenIA.Models; // Asegurate que este namespace coincide con tu proyecto
+using CalistenIA.Models;
 using CalistenIA.Data;
 using System.Linq;
 
